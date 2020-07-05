@@ -6,17 +6,7 @@ namespace DAL
 {
     public class DiscriminantRepository : IRepositoryDal
     {
-        public void DiscriminantCalculation(Equation equation)
-        {
-            using (var context = new DiscriminantContext())
-            {
-                context.Equations.Add(equation);
-
-                context.SaveChanges();
-            }
-        }
-
-        public void CalculateRoots(Equation equation)
+        public void SaveResults(Equation equation)
         {
             using (var context = new DiscriminantContext())
             {

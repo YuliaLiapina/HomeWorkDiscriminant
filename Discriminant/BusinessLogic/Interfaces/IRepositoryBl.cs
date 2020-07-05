@@ -5,6 +5,6 @@ namespace BusinessLogic.Interfaces
     public interface IRepositoryBl
     {
         double DiscriminantCalculate(EquationBl equationBl);
-        GetRootsResult CalculateRoots(EquationBl equationBl);
+        EquationResultBl CalculateRoots(EquationBl equationBl, double discriminant);
     }
 }

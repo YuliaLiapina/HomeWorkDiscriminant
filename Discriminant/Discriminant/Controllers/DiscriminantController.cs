@@ -23,6 +23,7 @@ namespace Discriminant.Controllers
             {
                 cfg.CreateMap<EquationBl, EquationPl>();
                 cfg.CreateMap<EquationPl, EquationBl>();
+                cfg.CreateMap<EquationResultBl, EquationResultPl>();
             });
 
             _mapper = new Mapper(conf);
@@ -39,17 +40,15 @@ namespace Discriminant.Controllers
         {
             var equation = _mapper.Map<EquationBl>(equationPl);
 
-            var result = _repositoryBl.DiscriminantCalculate(equation);
+            var discriminant = _repositoryBl.DiscriminantCalculate(equation);
 
-            equationPl.Discriminant = result;
+            EquationResultBl rootsBl = _repositoryBl.CalculateRoots(equation, discriminant);
 
-            GetRootsResult roots = _repositoryBl.CalculateRoots(equation);
+            var rootsPl = _mapper.Map<EquationResultPl>(rootsBl);
 
-            equationPl.FirstRoot = roots.FirstRoot;
+            rootsPl.Discriminant = discriminant;
 
-            equationPl.SecondRoot = roots.SecondRoot;
-
-            return View("CalculateResult", equationPl);
+            return View("CalculateResult", rootsPl);
         }
     }   
 }

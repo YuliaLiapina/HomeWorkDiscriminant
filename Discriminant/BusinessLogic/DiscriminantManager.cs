@@ -29,45 +29,40 @@ namespace BusinessLogic
 
         public double DiscriminantCalculate(EquationBl equationBl)
         {
+            var results = new EquationResultBl();
+
             var discriminant = Math.Pow(equationBl.B, 2) - 4 * equationBl.A * equationBl.C;
 
-            equationBl.Discriminant = discriminant;
-
-            var equationDal = _mapper.Map<Equation>(equationBl);
-
-            _discriminantRepository.DiscriminantCalculation(equationDal);
+            results.Discriminant = discriminant;
 
             return discriminant;
         }
 
-        public GetRootsResult CalculateRoots(EquationBl equationBl)
+        public EquationResultBl CalculateRoots(EquationBl equationBl, double discriminant)
         {
-            var roots = new GetRootsResult();
+            var results = new EquationResultBl();
 
-            if (equationBl.Discriminant < 0)
+            if (discriminant < 0)
             {
-                equationBl.FirstRoot = null;
-                equationBl.SecondRoot = null;
+                results.FirstRoot = null;
+                results.SecondRoot = null;
             }
-            if (equationBl.Discriminant == 0)
+            if (discriminant == 0)
             {
-                equationBl.FirstRoot = -equationBl.B / (2 * equationBl.A);
-                equationBl.SecondRoot = null;
+                results.FirstRoot = -equationBl.B / (2 * equationBl.A);
+                results.SecondRoot = null;
             }
-            if (equationBl.Discriminant > 0)
+            if (discriminant > 0)
             {
-                equationBl.FirstRoot = (-equationBl.B + Math.Sqrt(equationBl.Discriminant)) / (2 * equationBl.A);
-                equationBl.SecondRoot = (-equationBl.B - Math.Sqrt(equationBl.Discriminant)) / (2 * equationBl.A);
+                results.FirstRoot = (-equationBl.B + Math.Sqrt(discriminant)) / (2 * equationBl.A);
+                results.SecondRoot = (-equationBl.B - Math.Sqrt(discriminant)) / (2 * equationBl.A);
             }
 
-            roots.FirstRoot = equationBl.FirstRoot;
-            roots.SecondRoot = equationBl.SecondRoot;
+            var equation = new Equation() { A = equationBl.A, B = equationBl.B, C = equationBl.C, Discriminant = discriminant, FirstRoot = results.FirstRoot, SecondRoot = results.SecondRoot };
 
-            var equation = _mapper.Map<Equation>(equationBl);
+            _discriminantRepository.SaveResults(equation);
 
-            _discriminantRepository.CalculateRoots(equation);
-
-            return roots;
+            return results;
         }
     }
 }

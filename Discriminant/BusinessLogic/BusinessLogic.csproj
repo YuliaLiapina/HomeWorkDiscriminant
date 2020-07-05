@@ -46,9 +46,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DiscriminantManager.cs" />
-    <Compile Include="GetRootsResult.cs" />
     <Compile Include="Interfaces\IRepositoryBl.cs" />
     <Compile Include="ModelsBL\EquationBl.cs" />
+    <Compile Include="ModelsBL\EquationResultBl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
