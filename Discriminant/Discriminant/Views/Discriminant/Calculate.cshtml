@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewBag.Title = "Calculate";
+}
+
+<h2>Input parametrs of equation</h2>
+@using (Html.BeginForm("Calculate", "Discriminant", FormMethod.Post))
+{
+    <lable>Parametr A</lable>
+    <p>
+        <input type="number" name="A" />
+    </p>
+    <lable>Parametr B</lable>
+    <p>
+        <input type="number" name="B" />
+    </p>
+    <lable>Parametr C</lable>
+    <p>
+        <input type="number" name="C" />
+    </p>
+    <button type="submit" value="action">Calculate</button>
+}
+

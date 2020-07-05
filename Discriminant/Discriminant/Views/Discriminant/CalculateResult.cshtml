@@ -1,0 +1,28 @@
+﻿@model Discriminant.Models.EquationPl
+@{
+    ViewBag.Title = "CalculateResult";
+}
+<h2>Your equation: @Model.A*x<sup>2</sup>+(@Model.B)*x+(@Model.C)</h2>
+<h2 align="center"> Calculation result </h2>
+<tr>
+    <td>
+        <h1>Discriminant = @Model.Discriminant</h1>
+    </td>
+
+    <td>
+        @if (Model.FirstRoot != null && Model.SecondRoot == null)
+        {
+            <h2>First Root = @Model.FirstRoot</h2>
+        }
+        @if (Model.FirstRoot == null && Model.SecondRoot == null)
+        {
+            <h2>There are no roots</h2>
+        }
+        @if (Model.FirstRoot != null && Model.SecondRoot != null)
+        {
+            <h2>First Root = @Model.FirstRoot</h2>
+            <h2>Second Root = @Model.SecondRoot</h2>
+        }
+    </td>
+</tr>
+
